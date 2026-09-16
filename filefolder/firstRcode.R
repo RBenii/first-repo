@@ -3,13 +3,3 @@ PauAge <- 21
 
 addAge = TylherAge + PauAge
 addAge
-
-mulAge = TylherAge * PauAge
-mulAge
-
-subAge = TylherAge - PauAge
-subAge
-
-divAge = TylherAge / PauAge
-divAge
-

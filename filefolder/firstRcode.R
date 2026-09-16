@@ -9,3 +9,7 @@ mulAge
 
 subAge = TylherAge - PauAge
 subAge
+
+divAge = TylherAge / PauAge
+divAge
+

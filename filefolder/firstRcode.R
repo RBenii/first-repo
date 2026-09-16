@@ -6,3 +6,6 @@ addAge
 
 mulAge = TylherAge * PauAge
 mulAge
+
+subAge = TylherAge - PauAge
+subAge

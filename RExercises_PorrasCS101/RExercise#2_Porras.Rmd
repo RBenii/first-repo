@@ -1,0 +1,202 @@
+---
+title: "RExercise#2_Porras"
+author: "Renz Benedict Porras"
+date: "2026-09-30"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+### Part A- Arithmetic Operations
+```{r} 
+# TODO: Store 17 in a variable called a, and 5 in a variable called b
+# Then print the results of: a + b, a - b, a * b, a / b
+
+a <- 17
+b <- 5
+
+print(a + b)
+print(a - b)
+print(a * b)
+print(a / b)
+
+```
+```{r} 
+# TODO: Using the same a and b, compute and print a %% b and a %/% b
+# a %% b = remainder of a / b
+# a %/% b = whole-number (integer) division
+
+print(a%%b)
+print(a%/%b)
+```
+```{r}
+# TODO: Print 2 raised to the power of 10 using the ^ operator
+
+print(2^10)
+```
+
+# Question #1: Run 17 / 5, 17 %% 5, and 17 %/% 5 side by side. In your own words, explain how these three results relate to each other mathematically.
+```{r}
+a <- 17
+b <- 5
+
+div <- a / b
+mod <- a%%b
+quo <- a%/%b
+
+print(div)
+print(mod)
+print(quo)
+```
+# Answer number 1: 17 / 5, Divides the numbers completely, returning a decimal. 17 %% 5, Returns only the leftover remainder.17 %/% 5, Returns only the whole number or the quotient, discarding the remainder.
+
+
+# Question #2: Predict the output of 10 %% 3 and 10 %/% 3 before running the code. Were you correct? If not, explain what you misunderstood.
+```{r}
+print(10 %% 3)
+print(10 %/% 3)
+```
+# Answer number 2: I did predict it. (%%) is modulo which prints the remainder, while (%/%) prints the whole number or the quotient.
+
+
+### Part B- Basic Data Types: typeof(), class(), and mode()
+```{r}
+x <- 42
+y <- 42L      
+z <- "42"
+w <- TRUE
+v <- 3 + 2i
+
+# TODO: Use typeof() to check the type of each of x, y, z, w, v
+typeof(x)
+typeof(y)
+typeof(z)
+typeof(w)
+typeof(v)
+
+```
+
+```{r}
+# TODO: Use class() to check the class of each of x, y, z, w, v
+
+class(x)
+class(y)
+class(z)
+class(w)
+class(v)
+```
+
+```{r}
+# TODO: Use mode() to check the class of each of x, y, z, w, v
+mode(x)
+mode(y)
+mode(z)
+mode(w)
+mode(v)
+```
+
+# Question #3): x <- 42 and y <- 42L look almost identical, but typeof(x) and typeof(y) give different answers. Explain the difference in your own words.
+
+# Answer number 3: x <- 42 is stored as a double because R defaults to numeric decimals for all numbers, whereas y <- 42L is explicitly stored as an integer because the L suffix forces R to bypass the decimal default and save memory.
+
+
+# Question #4: Is typeof() ever different from class() and from mode() for the same object? Look at your results above and explain any case where this happens (or, if you did not see one, explain what you would expect for a matrix or factor).
+
+# Answer number 4: typeof(), class(), and mode() frequently shows different answers for the same object because typeof() identifies the internal data storage type, mode() gives the object's basic type for compatibility with old S language code, and class() represents the object's object-oriented type that dictates how functions treat it.
+
+
+### Part C — Type Conversion (20 min)
+```{r}
+num_string <- "123"
+
+# TODO: Convert num_string to a numeric value using as.numeric()
+# Then check its type with typeof(), class(), and mode()
+
+num_value <- as.numeric(num_string)
+
+as.numeric(num_string)
+
+typeof(num_value)  
+class(num_value)   
+mode(num_value) 
+```
+
+```{r}
+# TODO: Convert the number 0 and the number 1 to logical using as.logical()
+# What do you get?
+
+as.logical(0)
+as.logical(1)
+```
+
+```{r}
+bad_string <- "hello123"
+
+# TODO: Try converting bad_string to numeric using as.numeric()
+# Run this chunk and observe the warning message and the result
+as.numeric(bad_string)
+
+```
+
+# Question #5: When you ran the conversion-fail chunk, R produced NA and a warning instead of stopping with an error.
+# Why do you think R is designed to give a warning here rather than crashing the whole script?
+
+# Answer number 5: R replaces the bad data with NA (missing values) so you can fix it later without the whole program stopping. 
+
+# Question #6: as.logical(0) and as.logical(1) convert to FALSE and TRUE.
+# What do you think as.logical(2) and as.logical(-1)` will produce?
+
+# Answer number 6: Both will be TRUE.
+
+```{r}
+as.logical(2)
+as.logical(-1)
+```
+# Only (0) will be FALSE. Any number either positive or negative will automatically be TRUE.
+
+
+### Part D — Strings, paste(), and paste0()
+```{r}
+first_name <- "Juan"
+last_name <- "Dela Cruz"
+
+# TODO: Print first_name and last_name using print() and/or cat()
+
+cat(first_name, last_name)
+```
+
+```{r}
+# TODO: Use paste() to combine first_name and last_name into a full name
+# TODO: Use paste0() to do the same, and compare the two results
+
+full_name <- paste(first_name, last_name)
+paste0(first_name, last_name)
+```
+
+```{r}
+# TODO: Use paste() with the argument sep = "-" to join first_name and
+# last_name with a dash instead of a space
+
+paste(first_name, last_name, sep = "-")
+```
+
+```{r}
+age <- 21
+
+# TODO: Use paste0() to build the sentence:
+# "Juan Dela Cruz is 21 years old." by combining full_name, age, and text
+
+paste0(full_name, " is ", age, " years old.")
+```
+
+# Question #7: paste() and paste0() produced different results for the same two strings. Explain exactly why, referencing what each function does by default.
+
+# Answer number 7: paste() has a default space between strings, while paste0() doesn't have space so it directly connects strings.
+
+# Question #8: In the strings-numbers chunk, you combined a character string with a numeric variable (age) using paste0() without first converting age to a string.
+# Did this cause an error? Explain what paste0() does internally to make this work, and how it relates to the type conversions you practiced in Part C.
+
+# Answer number 8: No, it did not cause an error because paste0() automatically converts numbers into character strings behind the scenes. This automatic process is called implicit coercion, which performs the exact same type conversion you did manually in Part C using as.character().

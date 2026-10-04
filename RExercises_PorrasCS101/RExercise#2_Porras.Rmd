@@ -200,3 +200,33 @@ paste0(full_name, " is ", age, " years old.")
 # Did this cause an error? Explain what paste0() does internally to make this work, and how it relates to the type conversions you practiced in Part C.
 
 # Answer number 8: No, it did not cause an error because paste0() automatically converts numbers into character strings behind the scenes. This automatic process is called implicit coercion, which performs the exact same type conversion you did manually in Part C using as.character().
+
+
+### Part E — Critical Thinking Challenge
+```{r}
+# TODO: Predict, then test: what is the result of "5" + 5 in R?
+# Run it and read the error message carefully.
+"5" + 5
+# I predicted that the output of this will be error because "5" + 5, is non-numeric to binary operator
+
+```
+
+```{r}
+# TODO: Now fix the code above so that "5" + 5 correctly evaluates to 10
+# using an appropriate conversion function.
+as.numeric("5") + 5
+```
+
+# Question #9: Some programming languages automatically convert "5" + 5 into 10 without an error. R does not.
+# Based on what you’ve learned about R’s data types in this lab, why do you think R requires an explicit conversion instead of guessing what the programmer meant?
+
+# Answer number 9: R forces us to convert types explicitly to prevent silent mistakes. If R tried to guess what we meant, it might accidentally glue the data together as text (like making "55") or change it into the wrong number without telling us. Error means you find the mistakes immediately before they mess up our math or statistics.
+
+# Question #10: Suppose a classmate writes a script that reads a column of “numbers” from a text file. The column looks numeric, but when they try sum() on it, R throws an error. Based on everything in this lab (types, typeof()/class()/mode(), conversion, warnings), write a short paragraph explaining what likely went wrong and the steps you’d take to diagnose and fix it.
+
+# Answer number 10: To fix this, check the data type using class(data$column), find and remove the text typos, and then use as.numeric() to convert the column back into numbers so sum() can work.
+
+
+
+### CONCLUSION
+# This activity covers R's arithmetic operations, basic data types, type conversions, and string manipulation techniques. You will practice using standard mathematical operators, explore how R stores different kinds of data using functions like typeof() and class(), and learn how to safely coerce values between types. The exercises also emphasize how R's strict type enforcement and how to handle warnings and errors during data analysis.

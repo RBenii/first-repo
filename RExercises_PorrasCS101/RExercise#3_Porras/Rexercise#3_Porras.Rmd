@@ -2,7 +2,9 @@
 title: "RExercise#3_Porras"
 author: "Renz Benedict Porras"
 date: "2026-10-14"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 

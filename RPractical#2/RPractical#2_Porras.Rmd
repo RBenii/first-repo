@@ -49,6 +49,7 @@ new_hires <- data.frame(
   rating        = c(3L, 4L, 5L),
   stringsAsFactors = FALSE
 )
+
 print(new_hires)
 
 # B2

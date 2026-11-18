@@ -1,0 +1,174 @@
+---
+title: "RPractical#2_Porras"
+author: "Renz Benedict Porras"
+date: "2026-11-18"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+### Part A: Importing and Inspecting a CSV
+
+```{r}
+# A1
+emp_df <- read.csv("employees.csv", stringsAsFactors = FALSE)
+
+# A2
+str(emp_df)
+print(head(emp_df, 5))
+print(summary(emp_df))
+
+# A3
+cat("Rows:", nrow(emp_df), "\n")
+cat("Columns:", ncol(emp_df), "\n")
+print(sapply(emp_df, class))
+
+# A4
+cat("Mean salary:", mean(emp_df$salary), "\n")
+cat("Max age:", max(emp_df$age), "\n")
+print(table(emp_df$department))
+
+```
+
+### Part B: Creating Data Frames
+```{r}
+# B1
+new_hires <- data.frame(
+  emp_id        = 21:23,
+  name          = c("Uma", "Victor", "Wen"),
+  department    = c("HR", "IT", "Sales"),
+  sex           = c("F", "M", "F"),
+  age           = c(28L, 37L, 33L),
+  salary        = c(45000L, 83000L, 60000L),
+  years_service = c(2L, 9L, 6L),
+  rating        = c(3L, 4L, 5L),
+  stringsAsFactors = FALSE
+)
+print(new_hires)
+
+# B2
+emp_all <- rbind(emp_df, new_hires)
+print(dim(emp_all))
+
+# B3
+emp_all$bonus <- round(emp_all$salary * 0.05)
+
+```
+
+
+### Part C: Subsetting 
+
+```{r}
+# C1
+print(emp_all[1:5, c("name", "salary")])
+
+# C2
+print(emp_all[emp_all$salary > 70000, ])
+
+# C3
+print(subset(emp_all,
+             department == "IT" & years_service >= 5,
+             select = c(name, years_service, salary)))
+
+# C4
+older_idx <- which(emp_all$age > 50)
+print(older_idx)
+print(emp_all$name[older_idx])
+
+# C5
+print(head(emp_all[, -c(1, which(names(emp_all) == "bonus"))], 3))
+
+# C6
+print(emp_all$salary[emp_all$name == "Mia"])
+
+```
+
+
+
+### Part D: Factors
+
+```{r}
+# D1
+emp_all$department <- factor(emp_all$department)
+emp_all$sex        <- factor(emp_all$sex)
+print(levels(emp_all$department))
+print(levels(emp_all$sex))
+
+# D2
+print(table(emp_all$department))
+print(table(emp_all$department, emp_all$sex))
+
+# D3
+emp_all$rating_level <- factor(emp_all$rating,
+                               levels = 1:5,
+                               labels = c("Poor", "Fair", "Good", "Very Good", "Excellent"),
+                               ordered = TRUE)
+print(table(emp_all$rating_level))
+
+# D4
+for (d in levels(emp_all$department)) {
+  m <- mean(emp_all$salary[emp_all$department == d])
+  cat(d, ":", round(m), "\n")
+}
+
+```
+
+
+### Part E: Conditional Statements
+
+```{r}
+# E1
+emp_all$salary_band <- ifelse(emp_all$salary >= 70000, "High",
+                       ifelse(emp_all$salary >= 50000, "Medium", "Low"))
+print(table(emp_all$salary_band))
+
+# E2
+emp_all$level <- ifelse(emp_all$years_service >= 8, "Senior", "Junior")
+print(table(emp_all$level))
+
+# E3
+raise_pct <- function(rating) {
+  if (rating == 5) {
+    0.10
+  } else if (rating == 4) {
+    0.07
+  } else if (rating == 3) {
+    0.04
+  } else {
+    0
+  }
+}
+emp_all$raise      <- sapply(emp_all$rating, raise_pct)
+emp_all$new_salary <- round(emp_all$salary * (1 + emp_all$raise))
+print(head(emp_all[, c("name", "rating", "raise", "new_salary")], 5))
+
+# E4
+total <- sum(emp_all$new_salary)
+if (total < 1600000) {
+  print("Budget OK")
+} else {
+  print("Over budget")
+}
+print(total)
+
+```
+
+
+### Part E: Conditional Statements
+
+```{r}
+# F1
+print(sort(emp_all$salary, decreasing = TRUE)[1:5])
+print(sort(emp_all$name)[1:5])
+
+# F2
+by_salary <- emp_all[order(emp_all$salary, decreasing = TRUE), ]
+print(head(by_salary[, c("name", "department", "salary")], 5))
+
+```
+
